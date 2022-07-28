@@ -15,7 +15,8 @@ import ListAltIcon from '@mui/icons-material/ListAlt';
 import HomeIcon from '@mui/icons-material/Home';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { searchNews } from '../../store/actions';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -58,6 +59,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
+    const dispatch = useDispatch();
     const news = useSelector(state => state.news);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -65,6 +67,18 @@ export default function Header() {
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
     console.log("searchValue", searchValue);
+
+    const handleSearchChange = (event) => {
+        setSearchValue(event.target.value);
+        dispatch(searchNews(searchValue));
+    }
+
+    React.useEffect(() => {
+        return () => {
+            setSearchValue('');
+            dispatch(searchNews(searchValue));
+        }
+    }, [])
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -177,7 +191,7 @@ export default function Header() {
                             placeholder="Search…"
                             inputProps={{ 'aria-label': 'search' }}
                             value={searchValue}
-                            onChange={(e) => setSearchValue(e.target.value)}
+                            onChange={(e) => handleSearchChange(e)}
                         />
                     </Search>
                     <Box sx={{ flexGrow: 1 }} />

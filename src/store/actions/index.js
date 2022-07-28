@@ -1,4 +1,11 @@
-import { newsConstants } from "../constants";
+import { newsConstants, searchConstants } from "../constants";
+
+export const searchNews = (keyword) => {
+    return {
+        type: searchConstants.SEARCH_NEWS,
+        payload: keyword,
+    }
+}
 
 export const getAllNews = () => {
     return {

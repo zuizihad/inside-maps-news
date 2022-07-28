@@ -4,7 +4,6 @@ import Layout from '../../components/layout'
 
 const Details = () => {
     const params = useParams();
-    console.log(params)
     return (
         <Layout>
             <div>details</div>

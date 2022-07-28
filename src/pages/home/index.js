@@ -4,8 +4,11 @@ import React, { useEffect } from 'react'
 import Layout from '../../components/layout'
 import News from '../../components/news'
 import { getAllNews } from '../../services/get-all-news'
+import { useDispatch, useSelector } from 'react-redux';
 
 const Home = () => {
+    const keyword = useSelector(state => state.search.keyword);
+
     const {
         isLoading,
         isError,
@@ -13,18 +16,16 @@ const Home = () => {
         data,
         hasNextPage,
         fetchNextPage,
-    } = useInfiniteQuery(["news"], ({ pageParam = 1 }) => getAllNews(pageParam), {
+    } = useInfiniteQuery(["news"], ({ pageParam = 1 }) => getAllNews(pageParam, keyword), {
         getNextPageParam: (lastPage, allPages) => {
             // const maxPages = Math.ceil(lastPage.totalResults / 20);
             const maxPages = 100 / 20;
             const nextPage = allPages.length + 1;
-            console.log(lastPage, allPages, maxPages, nextPage);
             return nextPage <= maxPages ? nextPage : undefined;
         }
     });
 
     useEffect(() => {
-        console.log("hasNextPage", hasNextPage);
         let fetching = false;
         const onScroll = async (event) => {
             const { scrollHeight, scrollTop, clientHeight } = event.target.scrollingElement;

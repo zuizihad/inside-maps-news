@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const ReadingList = () => {
     const dispatch = useDispatch();
     const news = useSelector(state => state.news);
-    console.log(news);
+
     return (
         <Layout>
             <Container style={{ marginTop: '10px' }}>
