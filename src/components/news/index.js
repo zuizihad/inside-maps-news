@@ -6,7 +6,9 @@ import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions, Drawer } from '@mui/material';
 import { Box } from '@mui/system';
 import { useDispatch } from 'react-redux';
-import { addReadLater, removeReadLater } from '../../store/actions'
+import { addReadLater, removeReadLater } from '../../store/actions';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function News({ article, flag }) {
     console.log(flag);
@@ -25,10 +27,12 @@ export default function News({ article, flag }) {
     const handleReadLater = (e) => {
         e.preventDefault();
         dispatch(addReadLater(article));
+        toast.success('Added to reading list')
     }
     const handleRemove = (e) => {
         e.preventDefault();
         dispatch(removeReadLater(article));
+        toast.success('Removed from reading list')
     }
     return (
         <>
@@ -92,6 +96,7 @@ export default function News({ article, flag }) {
                     <p>{article.content}</p>
                 </Drawer>
             </Box>
+            <ToastContainer />
         </>
     );
 }

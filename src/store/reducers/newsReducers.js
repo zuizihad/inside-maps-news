@@ -12,11 +12,14 @@ const newsReducers = (state = initialState, action) => {
             }
         }
         case newsConstants.ADD_TO_READ_LATER: {
-            return {
+            const data = state.readLater.length === 0 ? action.payload :
+                state.readLater.find(item => item.title !== action.payload.title);
+            if (data) return {
                 ...state,
-                readLater: [...state.readLater, action.payload],
+                readLater: [...state.readLater, data],
             }
         }
+            break;
         case newsConstants.REMOVE_FROM_READ_LATER: {
             return {
                 ...state,

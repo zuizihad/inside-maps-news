@@ -11,11 +11,11 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import ListAltIcon from '@mui/icons-material/ListAlt';
+import HomeIcon from '@mui/icons-material/Home';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -58,12 +58,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
+    const news = useSelector(state => state.news);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
+    const [searchValue, setSearchValue] = React.useState('');
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
+    console.log("searchValue", searchValue);
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -120,14 +121,14 @@ export default function Header() {
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
-            <MenuItem>
-                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="error">
-                        <MailIcon />
-                    </Badge>
-                </IconButton>
-                <p>Messages</p>
-            </MenuItem>
+            <NavLink to="/">
+                <MenuItem>
+                    <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                        <HomeIcon />
+                        <p>Home</p>
+                    </IconButton>
+                </MenuItem>
+            </NavLink>
             <NavLink to="/reading-list">
                 <MenuItem>
                     <IconButton
@@ -135,26 +136,13 @@ export default function Header() {
                         aria-label="show 17 new notifications"
                         color="inherit"
                     >
-                        <Badge badgeContent={17} color="error">
-                            <NotificationsIcon />
+                        <Badge badgeContent={news?.readLater?.length} color="error">
+                            <ListAltIcon />
                         </Badge>
                     </IconButton>
                     <p>Notifications</p>
                 </MenuItem>
             </NavLink>
-
-            <MenuItem onClick={handleProfileMenuOpen}>
-                <IconButton
-                    size="large"
-                    aria-label="account of current user"
-                    aria-controls="primary-search-account-menu"
-                    aria-haspopup="true"
-                    color="inherit"
-                >
-                    <AccountCircle />
-                </IconButton>
-                <p>Profile</p>
-            </MenuItem>
         </Menu>
     );
 
@@ -171,14 +159,16 @@ export default function Header() {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
-                    >
-                        NEWSX
-                    </Typography>
+                    <NavLink to="/">
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="div"
+                            sx={{ display: { xs: 'none', sm: 'block' } }}
+                        >
+                            NEWSX
+                        </Typography>
+                    </NavLink>
                     <Search>
                         <SearchIconWrapper>
                             <SearchIcon />
@@ -186,50 +176,24 @@ export default function Header() {
                         <StyledInputBase
                             placeholder="Search…"
                             inputProps={{ 'aria-label': 'search' }}
+                            value={searchValue}
+                            onChange={(e) => setSearchValue(e.target.value)}
                         />
                     </Search>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={4} color="error">
-                                <MailIcon />
-                            </Badge>
-                        </IconButton>
+
                         <NavLink to="/reading-list">
                             <IconButton
                                 size="large"
                                 aria-label="show 17 new notifications"
                                 color="inherit"
                             >
-                                <Badge badgeContent={17} color="error">
-                                    <NotificationsIcon />
+                                <Badge badgeContent={news?.readLater?.length} color="error">
+                                    <ListAltIcon />
                                 </Badge>
                             </IconButton>
                         </NavLink>
-
-                        <IconButton
-                            size="large"
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            <AccountCircle />
-                        </IconButton>
-                    </Box>
-                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
-                            size="large"
-                            aria-label="show more"
-                            aria-controls={mobileMenuId}
-                            aria-haspopup="true"
-                            onClick={handleMobileMenuOpen}
-                            color="inherit"
-                        >
-                            <MoreIcon />
-                        </IconButton>
                     </Box>
                 </Toolbar>
             </AppBar>
