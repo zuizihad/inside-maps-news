@@ -1,7 +1,7 @@
 import { searchConstants } from "../constants";
 
 const initialState = {
-    keyword: 'bitcoin',
+    keyword: '',
 }
 
 const searchReducers = (state = initialState, action) => {
@@ -9,6 +9,11 @@ const searchReducers = (state = initialState, action) => {
         case searchConstants.SEARCH_NEWS: {
             return {
                 keyword: action.payload,
+            }
+        }
+        case searchConstants.REMOVE_SEARCH_ITEM: {
+            return {
+                keyword: ''
             }
         }
         default:

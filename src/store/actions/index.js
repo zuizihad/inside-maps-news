@@ -1,9 +1,28 @@
-import { newsConstants, searchConstants } from "../constants";
+import { newsConstants, searchConstants, categoryConstants } from "../constants";
 
 export const searchNews = (keyword) => {
     return {
         type: searchConstants.SEARCH_NEWS,
         payload: keyword,
+    }
+}
+
+export const removeSearchItem = () => {
+    return {
+        type: searchConstants.REMOVE_SEARCH_ITEM,
+    }
+}
+
+export const newsCategory = (category) => {
+    console.log(category);
+    return {
+        type: categoryConstants.CATEGORY_NEWS,
+        payload: category,
+    }
+}
+export const removeNewsCategory = () => {
+    return {
+        type: categoryConstants.REMOVE_CATEGORY_ITEM,
     }
 }
 

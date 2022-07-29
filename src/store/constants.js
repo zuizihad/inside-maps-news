@@ -6,4 +6,10 @@ export const newsConstants = {
 
 export const searchConstants = {
     SEARCH_NEWS: 'SEARCH_NEWS',
+    REMOVE_SEARCH_ITEM: 'REMOVE_SEARCH_ITEM',
+}
+
+export const categoryConstants = {
+    CATEGORY_NEWS: 'CATEGORY_NEWS',
+    REMOVE_CATEGORY_ITEM: 'REMOVE_CATEGORY_ITEM',
 }

@@ -27,6 +27,7 @@ export default function News({ article, flag }) {
         e.preventDefault();
         dispatch(addReadLater(article));
         toast.success('Added to reading list')
+        console.log("article: ", article);
     }
     const handleRemove = (e) => {
         e.preventDefault();
@@ -45,7 +46,7 @@ export default function News({ article, flag }) {
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
-                            {article.title.substring(0, 50)}
+                            {article.title.substring(0, 30)}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
                             {article.publishedAt}

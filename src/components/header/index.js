@@ -13,10 +13,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import HomeIcon from '@mui/icons-material/Home';
-import MoreIcon from '@mui/icons-material/MoreVert';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { searchNews } from '../../store/actions';
+import { removeSearchItem, searchNews } from '../../store/actions';
+import { Button } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -66,22 +66,17 @@ export default function Header() {
     const [searchValue, setSearchValue] = React.useState('');
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-    console.log("searchValue", searchValue);
 
     const handleSearchChange = (event) => {
         setSearchValue(event.target.value);
-        dispatch(searchNews(searchValue));
     }
 
-    React.useEffect(() => {
-        return () => {
-            setSearchValue('');
-            dispatch(searchNews(searchValue));
-        }
-    }, [])
-    const handleProfileMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
+    const handleSearch = (e) => {
+        e.preventDefault();
+        dispatch(searchNews(searchValue));
+        setSearchValue('')
+        dispatch(removeSearchItem());
+    }
 
     const handleMobileMenuClose = () => {
         setMobileMoreAnchorEl(null);
@@ -90,10 +85,6 @@ export default function Header() {
     const handleMenuClose = () => {
         setAnchorEl(null);
         handleMobileMenuClose();
-    };
-
-    const handleMobileMenuOpen = (event) => {
-        setMobileMoreAnchorEl(event.currentTarget);
     };
 
     const menuId = 'primary-search-account-menu';
@@ -194,6 +185,8 @@ export default function Header() {
                             onChange={(e) => handleSearchChange(e)}
                         />
                     </Search>
+                    <Button onClick={handleSearch} variant="contained">Search</Button>
+
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
 
