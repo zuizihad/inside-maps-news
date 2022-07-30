@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 const Home = () => {
   const keyword = useSelector(state => state.search.keyword);
   const category = useSelector(state => state.category.category)
-
+  console.log("keyword: ", keyword, "category: ", category)
   const {
     isLoading,
     isError,
@@ -49,7 +49,7 @@ const Home = () => {
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
 
           {data?.pages && data.pages.map(page =>
-            page.status === 'ok' && page.articles.map((article, index) => (
+            page && page.status === 'ok' && page.articles.map((article, index) => (
               <Grid item xs={2} sm={4} md={3} key={index}>
                 <News article={article} flag='home' />
               </Grid>

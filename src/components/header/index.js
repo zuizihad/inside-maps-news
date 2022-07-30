@@ -42,6 +42,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    cursor: 'pointer',
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -74,7 +75,11 @@ export default function Header() {
     const handleSearch = (e) => {
         e.preventDefault();
         dispatch(searchNews(searchValue));
-        setSearchValue('')
+    }
+
+    const handleRemoveSearch = (e) => {
+        e.preventDefault();
+        setSearchValue('');
         dispatch(removeSearchItem());
     }
 
@@ -185,8 +190,8 @@ export default function Header() {
                             onChange={(e) => handleSearchChange(e)}
                         />
                     </Search>
-                    <Button onClick={handleSearch} variant="contained">Search</Button>
-
+                    <Button onClick={handleSearch} variant="contained" style={{ marginRight: '5px' }}>Search</Button>
+                    <Button onClick={handleRemoveSearch} variant="contained">Remove</Button>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
 
