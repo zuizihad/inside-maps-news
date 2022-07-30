@@ -1,6 +1,6 @@
 # NEWS
 
-Wrapper api github[Wrapper api](https://github.com/zuizihad/news-api-wrap).
+Wrapper api github: [Wrapper api](https://github.com/zuizihad/news-api-wrap).
 
 ## Feature List
 
@@ -23,3 +23,24 @@ Wrapper api github[Wrapper api](https://github.com/zuizihad/news-api-wrap).
 
 
 ### Mobile and Tablet responsive
+
+## To run this project locally
+Clone the repository
+### `npm install`
+All the required dependencies will be installed
+
+### `npm start`
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+## You need to Clone and run Backend server form here
+Wrapper api github: [Wrapper api](https://github.com/zuizihad/news-api-wrap).
+
+## To run api locally
+Clone the repository: [Wrapper api](https://github.com/zuizihad/news-api-wrap).
+### `npm install`
+All the required dependencies will be installed
+
+### `npm start`
+Runs the app in the development mode.\
+Open [http://localhost:3001](http://localhost:3001) to view it in your browser.
